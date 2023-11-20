@@ -1,0 +1,43 @@
+Neon Pink:
+
+Hex Code: #FF6EC7
+RGB Values: (255, 110, 199)
+Neon Green:
+
+Hex Code: #39FF14
+RGB Values: (57, 255, 20)
+Neon Yellow:
+
+Hex Code: #FFFF00
+RGB Values: (255, 255, 0)
+Neon Orange:
+
+Hex Code: #FFA500
+RGB Values: (255, 165, 0)
+Neon Blue:
+
+Hex Code: #00FFFF
+RGB Values: (0, 255, 255)
+
+Neon Orange:
+
+Hex Code: #FF6E00
+RGB Values: (255, 110, 0)
+Neon Pink:
+
+Hex Code: #FF00FF
+RGB Values: (255, 0, 255)
+Neon Yellow:
+
+Hex Code: #FFFF00
+RGB Values: (255, 255, 0)
+Neon Red:
+
+Hex Code: #FF0000
+RGB Values: (255, 0, 0)
+Neon Coral:
+
+Hex Code: #FF7F50
+RGB Values: (255, 127, 80)
+
+Sun color: ffba08
