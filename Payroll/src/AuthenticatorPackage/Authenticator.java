@@ -17,10 +17,12 @@ import javax.swing.SwingConstants;
 
 import Tools.Utilities;
 
-public class Authenticator extends Auth_func {
+public class Authenticator extends Functions {
 	public static JFrame AuthFrame;
 	public static JLabel AuthLbl, Logo;
-	public static JButton AuthBtn, ThemeBtn, PassVisibleBtn;
+	public static JButton AuthBtn;
+	public static JButton ThemeBtn;
+	public static JButton PassVisibleBtn;
 	public static JTextField UserField;
 	public static JPasswordField PassField;
 	public Authenticator() {
@@ -49,7 +51,7 @@ public class Authenticator extends Auth_func {
 		AuthFrame.getContentPane().setBackground(Utilities.light);
 		AuthFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		AuthFrame.setFocusable(true);
-		AuthFrame.addMouseListener(Mechanics.requestFocus);
+		AuthFrame.addMouseListener(Functions.requestFocus);
 		AuthFrame.setVisible(true);
 	}
 	
@@ -71,8 +73,8 @@ public class Authenticator extends Auth_func {
 		UserField.setFont(new Font("Consolas", Font.PLAIN, 16));
 		UserField.setHorizontalAlignment(SwingConstants.CENTER);
 		UserField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Utilities.dark));
-		UserField.addFocusListener(Mechanics.add_PlaceHolder);
-		UserField.addKeyListener(Mechanics.filterSpace);
+		UserField.addFocusListener(Functions.add_PlaceHolder);
+		UserField.addKeyListener(Functions.filterSpace);
 		AuthFrame.getContentPane().add(UserField);
 		
 	}
@@ -86,8 +88,8 @@ public class Authenticator extends Auth_func {
 		PassField.setFont(new Font("Consolas", Font.PLAIN, 16));
 		PassField.setHorizontalAlignment(SwingConstants.CENTER);
 		PassField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Utilities.dark));
-		PassField.addFocusListener(Mechanics.add_PlaceHolder);
-		PassField.addKeyListener(Mechanics.filterSpace);
+		PassField.addFocusListener(Functions.add_PlaceHolder);
+		PassField.addKeyListener(Functions.filterSpace);
 		AuthFrame.getContentPane().add(PassField);
 	}
 	
@@ -98,7 +100,7 @@ public class Authenticator extends Auth_func {
 		PassVisibleBtn.setFocusable(false);
 		PassVisibleBtn.setBackground(Utilities.light);
 		PassVisibleBtn.setIcon(new ImageIcon(Utilities.show_light_img.getScaledInstance(Authenticator.PassVisibleBtn.getWidth(), Authenticator.PassVisibleBtn.getHeight(), Image.SCALE_AREA_AVERAGING)));
-		PassVisibleBtn.addActionListener(Mechanics.toggleEyeBtn);
+		PassVisibleBtn.addActionListener(Functions.toggleEyeBtn);
 		AuthFrame.getContentPane().add(PassVisibleBtn);
 	}
 	
@@ -115,7 +117,7 @@ public class Authenticator extends Auth_func {
 		AuthBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(Mechanics.getPassword());
+				//System.out.println(Functions.getPassword());
 			}
 		});
 		AuthFrame.getContentPane().add(AuthBtn);
@@ -128,7 +130,7 @@ public class Authenticator extends Auth_func {
 		ThemeBtn.setFocusable(false);
 		ThemeBtn.setIcon(new ImageIcon(Utilities.moon_img.getScaledInstance(ThemeBtn.getWidth(), ThemeBtn.getHeight(), Image.SCALE_AREA_AVERAGING)));
 		ThemeBtn.setBackground(Utilities.light);
-		ThemeBtn.addActionListener(UI.changeTheme);
+		ThemeBtn.addActionListener(Functions.switchTheme);
 		AuthFrame.getContentPane().add(ThemeBtn);
 	}
 	
