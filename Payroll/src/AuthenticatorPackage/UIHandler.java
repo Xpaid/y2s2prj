@@ -109,8 +109,8 @@ public interface UIHandler {
 		Authenticator.PassVisibleBtn.setIcon(new ImageIcon(iconImage));
 	}
 
-	static boolean isdarkTheme(Component component) {
-		return component.getBackground().equals(Utilities.dark);
+	static boolean isdarkTheme(JFrame frame) {
+		return frame.getContentPane().getBackground().equals(Utilities.dark);
 	}
 
 	static void showPassword(JPasswordField field) {
