@@ -2,6 +2,7 @@
 import java.awt.EventQueue;
 
 import AuthenticatorPackage.Authenticator;
+import Payroll.Payroll;
 
 final public class Main {
 
@@ -9,8 +10,7 @@ final public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new Authenticator();
-					//new Payroll();
+					new Payroll();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

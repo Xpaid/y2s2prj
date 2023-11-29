@@ -22,7 +22,6 @@ public interface UIHandler {
 				Authenticator.ThemeBtn.getHeight(), Image.SCALE_AREA_AVERAGING);
 
 		Color background = Authenticator.AuthFrame.getContentPane().getBackground();
-
 		if (background.equals(Utilities.light)) {
 			transitionTo(authenticator, sun, 255, 0);
 		} else {
@@ -131,6 +130,18 @@ public interface UIHandler {
 
 	static void showEyeToggle() {
 		Authenticator.PassVisibleBtn.setVisible(true);
+	}
+
+	static void defaulteyeIconShow() {
+		if (isdarkTheme(Authenticator.AuthFrame)) {
+			Authenticator.PassVisibleBtn.setIcon(
+					new ImageIcon(Utilities.show_dark_img.getScaledInstance(Authenticator.PassVisibleBtn.getWidth(),
+							Authenticator.PassVisibleBtn.getHeight(), Image.SCALE_AREA_AVERAGING)));
+		} else {
+			Authenticator.PassVisibleBtn.setIcon(
+					new ImageIcon(Utilities.show_light_img.getScaledInstance(Authenticator.PassVisibleBtn.getWidth(),
+							Authenticator.PassVisibleBtn.getHeight(), Image.SCALE_AREA_AVERAGING)));
+		}
 	}
 
 }
