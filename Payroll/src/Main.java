@@ -1,10 +1,10 @@
 
 import java.awt.EventQueue;
 
-import AuthenticatorPackage.Authenticator;
-import Payroll.Payroll;
+import authenticator.Authenticator;
+import payroll.Payroll;
 
-final public class Main {
+public class Main {
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
