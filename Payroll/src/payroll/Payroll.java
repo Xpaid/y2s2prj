@@ -10,47 +10,41 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingConstants;
 
+import payroll.dashboard.DashBoard;
+import payroll.employeeList.EmployeeListPnl;
+import payroll.employeeManager.EmployeeManager;
+import payroll.employeeViewer.Defaultpanel;
+import payroll.employeeViewer.EmployeeViewer;
+import payroll.employeeViewer.Employing;
+import payroll.listeners.Listeners;
+import payroll.userpanel.UserPanel;
 import tools.Utilities;
 import tools.Utilities.DarkModeColorPalette;
 import tools.Utilities.RoundedPanel;
 
-public class Payroll implements PayrollFunctions {
+public class Payroll implements Listeners {
 
 	public static JFrame MainFrame;
 
-	protected static JButton Options;
-	protected static JPopupMenu OptionsItems;
-	protected static JMenuItem Settings;
-	protected static JMenuItem Quit;
+	public static JButton Options;
+	public static JPopupMenu OptionsItems;
+	public static JMenuItem Settings;
+	public static JMenuItem Quit;
 
 	private JLabel Logo;
-
-	protected static JLabel DefaultRightCardLbl;
+	private RoundedPanel EmployeesTitle;
+	private JLabel EmployeeSubTitle; 
+	
+	public static Defaultpanel Defaultpanel;
+	
 
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	public Payroll() {
-		initPayroll();
 
-	}
-
-	private void initPayroll() {
-		setMainFrame();
-		setLogo();
-		setOptionsMenu();
-		setComponentsTitle();
-		setUserPanel();
-		setDashBoard();
-		setEmployeeManager();
-		setEmployeesLbl();
-		setEmployeeViewer();
-	}
-
-	private void setMainFrame() {
 		MainFrame = new JFrame();
 		MainFrame.setLocation(0, 0);
 		MainFrame.setSize(screenSize);
@@ -62,9 +56,7 @@ public class Payroll implements PayrollFunctions {
 		MainFrame.setMaximumSize(null);
 		MainFrame.requestFocus();
 		MainFrame.setVisible(true);
-	}
 
-	private void setOptionsMenu() {
 		// create the options menu
 		Options = new JButton("\u2022 \u2022 \u2022");
 		Options.setForeground(Utilities.light);
@@ -88,9 +80,6 @@ public class Payroll implements PayrollFunctions {
 		Quit.addActionListener(OptionsActionListener);
 		MainFrame.getContentPane().add(Options);
 
-	}
-
-	private void setLogo() {
 		Logo = new JLabel("Payroll");
 		Logo.setHorizontalAlignment(SwingConstants.CENTER);
 		Logo.setBounds(750, 11, 543, 244);
@@ -98,23 +87,11 @@ public class Payroll implements PayrollFunctions {
 		Logo.setForeground(Color.decode("#8A4FFF"));
 		Logo.setFont(new Font("Consolas", Font.BOLD, 99));
 		MainFrame.getContentPane().add(Logo);
-	}
 
-	private void setUserPanel() {
-		UserPanel UserPanel = new UserPanel(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
-		MainFrame.getContentPane().add(UserPanel);
-	}
-
-	private void setDashBoard() {
-		DashBoard DashBoard = new DashBoard(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
-		MainFrame.getContentPane().add(DashBoard);
-	}
-
-	private void setComponentsTitle() {
-		RoundedPanel EmployeesTitle = new RoundedPanel(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
+		EmployeesTitle = new RoundedPanel(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
 		EmployeesTitle.setBounds(30, 365, 171, 50);
 		EmployeesTitle.setLayout(null);
-		JLabel EmployeeSubTitle = new JLabel("Employees");
+		EmployeeSubTitle = new JLabel("Employees");
 		EmployeeSubTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		EmployeeSubTitle.setBounds(28, 11, 110, 30);
 		EmployeeSubTitle.setForeground(DarkModeColorPalette.GREAT_PURPLE);
@@ -132,20 +109,24 @@ public class Payroll implements PayrollFunctions {
 		InfoTitle.setFont(new Font("Consolas", Font.BOLD, 20));
 		EmployeeInfo.add(InfoTitle);
 		MainFrame.getContentPane().add(EmployeeInfo);
-	}
 
-	private void setEmployeeManager() {
 		EmployeeManager EmployeeManager = new EmployeeManager(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
 		MainFrame.getContentPane().add(EmployeeManager);
-	}
 
-	private void setEmployeesLbl() {
 		EmployeeListPnl EmployeesPnl = new EmployeeListPnl(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
 		MainFrame.getContentPane().add(EmployeesPnl);
-	}
+		
+		UserPanel UserPanel = new UserPanel(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
+		MainFrame.getContentPane().add(UserPanel);
 
-	private void setEmployeeViewer() {
-		EmployeeViewer EmployeeViewer = new EmployeeViewer(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
-		MainFrame.getContentPane().add(EmployeeViewer);
+		DashBoard DashBoard = new DashBoard(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
+		MainFrame.getContentPane().add(DashBoard);
+		
+		Defaultpanel = new Defaultpanel(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
+		MainFrame.getContentPane().add(Defaultpanel);
+		
+		//Defaultpanel.defaultpanel.add(new Employer(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 0));
+
+
 	}
 }

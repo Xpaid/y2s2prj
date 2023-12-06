@@ -12,26 +12,18 @@ import java.awt.Shape;
 import java.awt.geom.RoundRectangle2D;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.border.AbstractBorder;
 
 public interface Utilities {
 
-	ImageIcon icon = new ImageIcon("D:\\secret\\Payroll\\assets\\Payroll_Logo_Light.png");
-	Image App_icon = icon.getImage();
-
-	static Image User_Icon_Dark = new ImageIcon("assets\\User_Icon_Dark.png").getImage();
-	static Image User_Icon_Light = new ImageIcon("assets\\User_Icon_Light.png").getImage();
-	static Image Payroll_Logo_Dark = new ImageIcon("assets\\Payroll_Logo_Dark.png").getImage();
-	static Image Payroll_Logo_Light = new ImageIcon("assets\\Payroll_Logo_Light.png").getImage();
-
-	static Image sun_img = new ImageIcon("assets\\sun.png").getImage();
-	static Image moon_img = new ImageIcon("assets\\moon.png").getImage();
-
-	static Image show_light_img = new ImageIcon("assets/show_light.png").getImage();
-	static Image show_dark_img = new ImageIcon("assets/show_dark.png").getImage();
-	static Image hide_light_img = new ImageIcon("assets/hide_light.png").getImage();
-	static Image hide_dark_img = new ImageIcon("assets/hide_dark.png").getImage();
+	
+	static Image show_img = new ImageIcon("assets/show.png").getImage();
+	static Image hide_img = new ImageIcon("assets/hide.png").getImage();
+	
 	static Image search_img = new ImageIcon("assets/search.png").getImage();
 	static Image plus_img = new ImageIcon("assets/plus.png").getImage();
 	static Image filter_img = new ImageIcon("assets/filter.png").getImage();
@@ -121,7 +113,139 @@ public interface Utilities {
 	        g2d.dispose();
 	    }
 	}
+	
+	public class RoundedTextField extends JTextField {
+	    private int radius;
+	    private Color fillColor;
+	    private int shadowSize;
 
+	    public RoundedTextField(int radius, Color fillColor, int shadowSize) {
+	        this.radius = radius;
+	        this.fillColor = fillColor;
+	        this.shadowSize = shadowSize;
+	        setOpaque(false);
+	        setBorder(new RoundedBorder());
+	    }
+
+	    // Custom border class to create a rounded border with shadow
+	    private class RoundedBorder extends AbstractBorder {
+	        @Override
+	        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+	            Graphics2D g2d = (Graphics2D) g.create();
+
+	            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	            g2d.setColor(new Color(0, 0, 0, 100));
+	            g2d.fillRoundRect(shadowSize, shadowSize, width - 2 * shadowSize, height - 2 * shadowSize, radius, radius);
+	            g2d.dispose();
+	        }
+
+	        @Override
+	        public Insets getBorderInsets(Component c) {
+	            return new Insets(shadowSize, shadowSize, shadowSize, shadowSize);
+	        }
+	    }
+
+	    @Override
+	    protected void paintComponent(Graphics g) {
+	        Graphics2D g2d = (Graphics2D) g.create();
+
+	        // Paint the rounded rectangle
+	        g2d.setColor(fillColor);
+	        g2d.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
+
+	        g2d.dispose();
+	        super.paintComponent(g);
+	    }
+	}
+	
+	public class RoundedJPasswordField extends JPasswordField {
+	    private int radius;
+	    private Color fillColor;
+	    private int shadowSize;
+
+	    public RoundedJPasswordField(int radius, Color fillColor, int shadowSize) {
+	        this.radius = radius;
+	        this.fillColor = fillColor;
+	        this.shadowSize = shadowSize;
+	        setOpaque(false);
+	        setBorder(new RoundedBorder());
+	    }
+
+	    // Custom border class to create a rounded border with shadow
+	    private class RoundedBorder extends AbstractBorder {
+	        @Override
+	        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+	            Graphics2D g2d = (Graphics2D) g.create();
+
+	            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	            g2d.setColor(new Color(0, 0, 0, 100));
+	            g2d.fillRoundRect(shadowSize, shadowSize, width - 2 * shadowSize, height - 2 * shadowSize, radius, radius);
+	            g2d.dispose();
+	        }
+
+	        @Override
+	        public Insets getBorderInsets(Component c) {
+	            return new Insets(shadowSize, shadowSize, shadowSize, shadowSize);
+	        }
+	    }
+
+	    @Override
+	    protected void paintComponent(Graphics g) {
+	        Graphics2D g2d = (Graphics2D) g.create();
+
+	        // Paint the rounded rectangle
+	        g2d.setColor(fillColor);
+	        g2d.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
+
+	        g2d.dispose();
+	        super.paintComponent(g);
+	    }
+	}
+	
+	
+	public class RoundedButton extends JButton {
+	    private int radius;
+	    private Color fillColor;
+	    private int shadowSize;
+
+	    public RoundedButton(int radius, Color fillColor, int shadowSize) {
+	        this.radius = radius;
+	        this.fillColor = fillColor;
+	        this.shadowSize = shadowSize;
+	        setOpaque(false);
+	        setContentAreaFilled(false);
+	        setFocusPainted(false);
+	    }
+
+	    @Override
+	    protected void paintComponent(Graphics g) {
+	        Graphics2D g2d = (Graphics2D) g.create();
+
+	        // Enable better anti-aliasing for smoother edges
+	        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+	        // Paint the rounded rectangle
+	        g2d.setColor(fillColor);
+	        g2d.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
+
+	        g2d.dispose();
+	        super.paintComponent(g);
+	    }
+
+	    @Override
+	    protected void paintBorder(Graphics g) {
+	        Graphics2D g2d = (Graphics2D) g.create();
+
+	        // Enable anti-aliasing for smoother border
+	        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	        g2d.setColor(Color.BLACK);
+	        g2d.drawRoundRect(0, 0, getWidth() - 1, getHeight() - 1, radius, radius);
+
+	        g2d.dispose();
+	    }
+	}
+	
 	public class DarkModeColorPalette {
 	    // Background Color: Dark Charcoal
 	    public static final Color DARK_CHARCOAL = Color.decode("#121212");

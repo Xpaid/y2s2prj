@@ -2,144 +2,141 @@ package authenticator;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Image;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import payroll.listeners.Listeners;
 import tools.Utilities;
+import tools.Utilities.DarkModeColorPalette;
+import tools.Utilities.RoundedButton;
+import tools.Utilities.RoundedJPasswordField;
+import tools.Utilities.RoundedPanel;
+import tools.Utilities.RoundedTextField;
 
-public class Authenticator extends Functions {
-	public static JFrame AuthFrame;
-	public static JLabel AuthLbl, Logo;
-	public static JButton AuthBtn;
-	public static JButton ThemeBtn;
-	public static JButton PassVisibleBtn;
-	public static JTextField UserField;
-	public static JPasswordField PassField;
+public class Authenticator implements Listeners {
+	public static JFrame authFrame;
+	public static JLabel authStatelbl;
+	public static JLabel asklbl;
+	public static JButton changestatebtn;
+
+	public static RoundedTextField companyField;
+	public static RoundedJPasswordField passField;
+	public static JButton eyebtn;
 
 	public Authenticator() {
-		_init_Auth();
-	}
+		authFrame = new JFrame();
+		authFrame.setTitle("Payroll");
+		authFrame.setSize(350, 475);
+		authFrame.setLocationRelativeTo(null);
+		authFrame.setResizable(false);
+		authFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		authFrame.getContentPane().setBackground(DarkModeColorPalette.DARK_CHARCOAL);
+		authFrame.setFocusable(true);
+		authFrame.getContentPane().setLayout(null);
 
-	// call all components
-	void _init_Auth() {
-		set_authFrame();
-		set_Logo();
-		set_ThemeBtn();
-		set_AuthLbl();
-		set_AuthBtn();
-		set_UserField();
-		set_PassField();
-		set_PassVisibleBtn();
-	}
+		RoundedPanel panel = new RoundedPanel(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
+		panel.setBounds(44, 20, 250, 60);
+		panel.setLayout(null);
+		authFrame.getContentPane().add(panel);
 
-	void set_authFrame() {
-		AuthFrame = new JFrame("Payroll");
-		AuthFrame.setSize(700, 460);
-		AuthFrame.setResizable(false);
-		AuthFrame.setLocationRelativeTo(null);
-		AuthFrame.setIconImage(Utilities.App_icon);
-		AuthFrame.getContentPane().setLayout(null);
-		AuthFrame.setForeground(Utilities.light);
-		AuthFrame.getContentPane().setBackground(Utilities.light);
-		AuthFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		AuthFrame.setFocusable(true);
-		AuthFrame.addMouseListener(Functions.requestFocus);
-		AuthFrame.setVisible(true);
-	}
-
-	void set_AuthLbl() {
-		AuthLbl = new JLabel("Sign-up");
-		AuthLbl.setBounds(60, 75, 180, 75);
-		AuthLbl.setBackground(Utilities.light);
-		AuthLbl.setForeground(Utilities.dark);
-		AuthLbl.setFont(new Font("Consolas", Font.BOLD, 27));
-		AuthLbl.setHorizontalAlignment(SwingConstants.CENTER);
-		AuthFrame.getContentPane().add(AuthLbl);
-	}
-
-	void set_UserField() {
-		UserField = new JTextField("username");
-		UserField.setBounds(75, 160, 150, 25);
-		UserField.setBackground(Utilities.light);
-		UserField.setForeground(Utilities.dark);
-		UserField.setFont(new Font("Consolas", Font.PLAIN, 16));
-		UserField.setHorizontalAlignment(SwingConstants.CENTER);
-		UserField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Utilities.dark));
-		UserField.addFocusListener(Functions.add_PlaceHolder);
-		UserField.addKeyListener(Functions.DigestInput);
-		AuthFrame.getContentPane().add(UserField);
-
-	}
-
-	void set_PassField() {
-		PassField = new JPasswordField("password");
-		PassField.setEchoChar((char) 0);
-		PassField.setBounds(75, 220, 150, 25);
-		PassField.setBackground(Utilities.light);
-		PassField.setForeground(Utilities.dark);
-		PassField.setFont(new Font("Consolas", Font.PLAIN, 16));
-		PassField.setHorizontalAlignment(SwingConstants.CENTER);
-		PassField.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Utilities.dark));
-		PassField.addFocusListener(Functions.add_PlaceHolder);
-		PassField.addKeyListener(Functions.DigestInput);
-		AuthFrame.getContentPane().add(PassField);
-	}
-
-	void set_PassVisibleBtn() {
-		PassVisibleBtn = new JButton();
-		PassVisibleBtn.setBounds(229, 220, 20, 20);
-		PassVisibleBtn.setBorder(null);
-		PassVisibleBtn.setFocusable(false);
-		PassVisibleBtn.setBackground(Utilities.light);
-		PassVisibleBtn.setIcon(
-				new ImageIcon(Utilities.show_light_img.getScaledInstance(Authenticator.PassVisibleBtn.getWidth(),
-						Authenticator.PassVisibleBtn.getHeight(), Image.SCALE_AREA_AVERAGING)));
-		PassVisibleBtn.addActionListener(Functions.toggleEyeBtn);
-		AuthFrame.getContentPane().add(PassVisibleBtn);
-	}
-
-	void set_AuthBtn() {
-		AuthBtn = new JButton("Create");
-		AuthBtn.setBounds(95, 300, 115, 35);
-		AuthBtn.setBorder(null);
-		AuthBtn.setFocusable(false);
-		AuthBtn.setBackground(Color.GREEN);
-		AuthBtn.setForeground(Utilities.dark);
-		AuthBtn.setHorizontalAlignment(SwingConstants.CENTER);
-		AuthBtn.setVerticalAlignment(SwingConstants.CENTER);
-		AuthBtn.setFont(new Font("Consolas", Font.BOLD, 21));
-		AuthBtn.addActionListener(sendRequest);
-		AuthFrame.getContentPane().add(AuthBtn);
-	}
-
-	void set_ThemeBtn() {
-		ThemeBtn = new JButton();
-		ThemeBtn.setBounds(620, 15, 40, 40);
-		ThemeBtn.setBorder(BorderFactory.createEmptyBorder());
-		ThemeBtn.setFocusable(false);
-		ThemeBtn.setIcon(new ImageIcon(Utilities.moon_img.getScaledInstance(ThemeBtn.getWidth(), ThemeBtn.getHeight(),
-				Image.SCALE_AREA_AVERAGING)));
-		ThemeBtn.setBackground(Utilities.light);
-		ThemeBtn.addActionListener(Functions.switchTheme);
-		AuthFrame.getContentPane().add(ThemeBtn);
-	}
-
-	void set_Logo() {
-		Logo = new JLabel("PayRoll");
-		Logo.setBounds(315, 135, 315, 150);
-		Logo.setBackground(Utilities.light);
-		Logo.setForeground(Utilities.dark);
-		Logo.setFont(new Font("Consolas", Font.BOLD, 65));
+		JLabel Logo = new JLabel("Payroll");
+		Logo.setBounds(65, 11, 120, 36);
 		Logo.setHorizontalAlignment(SwingConstants.CENTER);
-		AuthFrame.getContentPane().add(Logo);
-	}
+		Logo.setVerticalAlignment(SwingConstants.CENTER);
+		Logo.setForeground(DarkModeColorPalette.GREAT_PURPLE);
+		Logo.setFont(new Font("Consolas", Font.BOLD, 31));
+		panel.add(Logo);
 
+		authStatelbl = new JLabel("Login");
+		authStatelbl.setBounds(54, 110, 95, 27);
+		authStatelbl.setForeground(DarkModeColorPalette.MEDIUM_GRAY);
+		authStatelbl.setFont(new Font("Consolas", Font.BOLD, 22));
+		authFrame.getContentPane().add(authStatelbl);
+
+		JLabel companyLbl = new JLabel("company");
+		companyLbl.setBounds(54, 165, 65, 14);
+		companyLbl.setForeground(DarkModeColorPalette.MEDIUM_GRAY.darker());
+		companyLbl.setFont(new Font("Consolas", Font.BOLD, 12));
+		companyLbl.setBorder(null);
+		authFrame.getContentPane().add(companyLbl);
+
+		companyField = new RoundedTextField(20, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
+		companyField.setBounds(54, 190, 230, 30);
+		companyField.setForeground(DarkModeColorPalette.LIGHT_GRAY);
+		companyField.setHorizontalAlignment(SwingConstants.CENTER);
+		companyField.setFont(new Font("Consolas", Font.PLAIN, 14));
+		companyField.setBorder(null);
+		companyField.addKeyListener(filtercharacter);
+		authFrame.getContentPane().add(companyField);
+
+		JLabel passwordLbl = new JLabel("password");
+		passwordLbl.setBounds(54, 245, 65, 14);
+		passwordLbl.setForeground(DarkModeColorPalette.MEDIUM_GRAY.darker());
+		passwordLbl.setFont(new Font("Consolas", Font.BOLD, 12));
+		passwordLbl.setBorder(null);
+		authFrame.getContentPane().add(passwordLbl);
+
+		passField = new RoundedJPasswordField(20, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 20);
+		passField.setBounds(54, 275, 230, 30);
+		passField.setForeground(DarkModeColorPalette.LIGHT_GRAY);
+		passField.setHorizontalAlignment(SwingConstants.CENTER);
+		passField.setFont(new Font("Consolas", Font.PLAIN, 14));
+		passField.setBorder(null);
+		passField.addKeyListener(filtercharacter);
+		authFrame.getContentPane().add(passField);
+
+		eyebtn = new JButton();
+		eyebtn.setContentAreaFilled(false);
+		eyebtn.setBorder(null);
+		eyebtn.setBounds(291, 278, 20, 20);
+		eyebtn.setIcon(new ImageIcon(Utilities.show_img.getScaledInstance(eyebtn.getWidth(), eyebtn.getHeight(),
+				Image.SCALE_AREA_AVERAGING)));
+		eyebtn.addActionListener(changeVisibility);
+		authFrame.getContentPane().add(eyebtn);
+
+		asklbl = new JLabel("no account yet?");
+		asklbl.setHorizontalAlignment(SwingConstants.CENTER);
+		asklbl.setForeground(DarkModeColorPalette.MEDIUM_GRAY.darker());
+		asklbl.setFont(new Font("Consolas", Font.BOLD, 10));
+		asklbl.setBorder(null);
+		asklbl.setBounds(65, 345, 130, 14);
+		authFrame.getContentPane().add(asklbl);
+
+		changestatebtn = new JButton("Create");
+		changestatebtn.setContentAreaFilled(false);
+		changestatebtn.setFont(new Font("Consolas", Font.PLAIN, 10));
+		changestatebtn.setForeground(DarkModeColorPalette.GREAT_PURPLE);
+		changestatebtn.setBounds(195, 345, 53, 14);
+		changestatebtn.setBorder(null);
+		changestatebtn.setFocusable(false);
+		changestatebtn.addActionListener(changeAuthWay);
+		authFrame.getContentPane().add(changestatebtn);
+
+		RoundedButton Go = new RoundedButton(20, DarkModeColorPalette.GREEN, 5);
+		Go.setText("Go");
+		Go.setBounds(125, 380, 76, 36);
+		Go.setFont(new Font("Consolas", Font.BOLD, 16));
+		Go.setForeground(DarkModeColorPalette.DARK_CHARCOAL);
+		Go.setBorder(null);
+		Go.addActionListener(Sendrequest);
+		authFrame.getContentPane().add(Go);
+		
+		JLabel versionString = new JLabel("version.1.0.Jets");
+		versionString.setHorizontalTextPosition(SwingConstants.CENTER);
+		versionString.setHorizontalAlignment(SwingConstants.RIGHT);
+		versionString.setForeground(DarkModeColorPalette.MEDIUM_GRAY.darker());
+		versionString.setFont(new Font("Consolas", Font.BOLD, 10));
+		versionString.setBorder(null);
+		versionString.setBounds(204, 422, 130, 14);
+		authFrame.getContentPane().add(versionString);
+
+		authFrame.setVisible(true);
+	}
 }

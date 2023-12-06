@@ -1,12 +1,16 @@
 package data;
 
+import java.awt.Image;
+import java.util.Date;
+
 public class Employee {
+	private Image employeeAvatar;
     private String employeeFirstName;
     private String employeeLastName;
     private int employeeAge;
     private String employeeId;
     private String employeeAddress;
-    private String employeeBirthDate;
+    private Date employeeBirthDate;
     private String employeeGender;
     private String employeeEmail;
     private String employeeContact;
@@ -18,6 +22,14 @@ public class Employee {
     private String employeeMonthlySalary;
     private String employeeHourlyWage;
 
+    public Image getEmployeeAvatar() {
+		return employeeAvatar;
+	}
+
+	public void setEmployeeAvatar(Image employeeAvatar) {
+		this.employeeAvatar = employeeAvatar;
+	}
+	
     public String getEmployeeFirstName() {
         return employeeFirstName;
     }
@@ -58,11 +70,11 @@ public class Employee {
         this.employeeAddress = employeeAddress;
     }
 
-    public String getEmployeeBirthDate() {
+    public Date getEmployeeBirthDate() {
         return employeeBirthDate;
     }
 
-    public void setEmployeeBirthDate(String employeeBirthDate) {
+    public void setEmployeeBirthDate(Date employeeBirthDate) {
         this.employeeBirthDate = employeeBirthDate;
     }
 
@@ -145,4 +157,6 @@ public class Employee {
     public void setEmployeeHourlyWage(String employeeHourlyWage) {
         this.employeeHourlyWage = employeeHourlyWage;
     }
+
+	
 }

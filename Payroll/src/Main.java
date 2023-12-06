@@ -1,8 +1,6 @@
 
 import java.awt.EventQueue;
-
 import authenticator.Authenticator;
-import payroll.Payroll;
 
 public class Main {
 
@@ -10,7 +8,8 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					new Payroll();
+					new Authenticator();
+					//new Payroll();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
