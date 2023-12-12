@@ -28,6 +28,8 @@ public interface Utilities {
 	static Image plus_img = new ImageIcon("assets/plus.png").getImage();
 	static Image filter_img = new ImageIcon("assets/filter.png").getImage();
 	static Image pay_img = new ImageIcon("assets/pay.png").getImage();
+	
+	static Image defaultAvatar = new ImageIcon("assets/user_Icon_Dark.png").getImage();
 
 
 	static Color light = new Color(255, 255, 255);

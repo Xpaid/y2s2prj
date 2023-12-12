@@ -69,7 +69,7 @@ public class EmployeeListPnl extends RoundedPanel {
             employeePanel.setPreferredSize(new Dimension(200, 100));
             employeePanel.setBorder(null);
 
-            JLabel avatar = new JLabel("n/a");
+            JLabel avatar = new JLabel();
             avatar.setBounds(5, 5, 50, 50);
             avatar.setIcon(new ImageIcon(employee.getEmployeeAvatar().getScaledInstance(avatar.getWidth(), avatar.getHeight(), Image.SCALE_AREA_AVERAGING)));
             avatar.setBorder(BorderFactory.createLineBorder(DarkModeColorPalette.MEDIUM_GRAY.darker()));

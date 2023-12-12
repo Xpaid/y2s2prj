@@ -13,14 +13,13 @@ public class Defaultpanel extends RoundedPanel{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static JLabel placeholder;
 
 	public Defaultpanel(int radius, Color fillColor, int shadowSize) {
 		super(radius, fillColor, shadowSize);
-		this.setBounds(1300, 425, 600, 625);
+		this.setBounds(0, 0, 600, 625);
 		this.setLayout(null);
 
-		placeholder = new JLabel("Select Entity to View");
+		JLabel placeholder = new JLabel("Select Entity to View");
 		placeholder.setBounds(140, 200, 300, 100);
 		placeholder.setHorizontalAlignment(SwingConstants.CENTER);
 		placeholder.setFont(new Font("Consolas", Font.PLAIN, 18));

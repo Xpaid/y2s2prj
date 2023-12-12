@@ -17,6 +17,7 @@ import javax.swing.WindowConstants;
 import payroll.dashboard.DashBoard;
 import payroll.employeeList.EmployeeListPnl;
 import payroll.employeeManager.EmployeeManager;
+import payroll.employeeViewer.RightContainer;
 import payroll.employeeViewer.Defaultpanel;
 import payroll.listeners.Listeners;
 import payroll.userpanel.UserPanel;
@@ -37,7 +38,7 @@ public class Payroll implements Listeners {
 	private RoundedPanel EmployeesTitle;
 	private JLabel EmployeeSubTitle;
 
-	public static Defaultpanel Defaultpanel;
+	public static RightContainer RightContainer;
 
 
 	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -121,8 +122,13 @@ public class Payroll implements Listeners {
 		DashBoard DashBoard = new DashBoard(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
 		MainFrame.getContentPane().add(DashBoard);
 
-		Defaultpanel = new Defaultpanel(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
-		MainFrame.getContentPane().add(Defaultpanel);
+		RightContainer = new RightContainer(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
+		MainFrame.getContentPane().add(RightContainer);
+		/*
+		 * Defaultpanel = new Defaultpanel(30,
+		 * DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5);
+		 * MainFrame.getContentPane().add(Defaultpanel);
+		 */
 
 		//Defaultpanel.defaultpanel.add(new Employer(30, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 0));
 

@@ -21,13 +21,21 @@ import authenticator.Authenticator;
 import data.Employee;
 import payroll.Payroll;
 import payroll.employeeList.EmployeeListPnl;
+import payroll.employeeViewer.RightContainer;
 import payroll.employeeViewer.Defaultpanel;
-import payroll.employeeViewer.EmployeeViewer;
 import payroll.employeeViewer.Employing;
 import payroll.functions.Functions;
 import tools.Utilities.DarkModeColorPalette;
 
 public interface Listeners extends Functions {
+	KeyListener onlynumber = new KeyAdapter() {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			if (!Functions.isNumber((e.getKeyChar()))) {
+				e.consume();
+			}
+		}
+	};
 
 	KeyListener filtercharacter = new KeyAdapter() {
 
@@ -89,40 +97,7 @@ public interface Listeners extends Functions {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			setComponentsEditable();
-		}
-
-		private void setComponentsEditable() {
-			Defaultpanel.placeholder.setVisible(false);
-			Payroll.Defaultpanel.add(new Employing(20, DarkModeColorPalette.SLIGHTLY_LIGHTER_CHARCOAL, 5));
-			Employing.ChooseAvatarBtn.setVisible(true);
-
-			setEditable(Employing.txtF_EmployeeFirstName);
-			setEditable(Employing.txtF_EmployeeLastName);
-			setEditable(Employing.txtF_EmployeeAddress);
-			setEditable(Employing.EmployeeBirthDate);
-			setEditable(Employing.txtF_EmployeeGender);
-			setEditable(Employing.txtF_EmployeeEmail);
-			setEditable(Employing.txtf_EmployeeContact);
-			setEditable(Employing.txtf_EmployeeWorkLocation);
-			setEditable(Employing.txtF_EmployeeJobTitle);
-			setEditable(Employing.txtF_EmployeeBankAcc);
-			setEditable(Employing.EmployeeStartDate);
-			setEditable(Employing.EmployeeContractEnd);
-			setEditable(Employing.txtf_EmployeeContact);
-			setEditable(Employing.txtF_EmployeeMonthlySalary);
-		}
-
-		private void setEditable(Component comp) {
-
-			if (comp instanceof JDateChooser) {
-				((JDateChooser) comp).setEnabled(true);
-			} else {
-				((JTextField) comp).setEditable(true);
-				((JTextField) comp).setBorder(
-						BorderFactory.createMatteBorder(0, 0, 1, 0, DarkModeColorPalette.MEDIUM_GRAY.darker()));
-			}
-
+			Functions.addEmployee();
 		}
 	};
 
@@ -130,13 +105,36 @@ public interface Listeners extends Functions {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Employing.avatar = Functions.selectImage();
-			if (!Employing.avatar.equals(null)) {
-				Employing.lbl_EmployeeAvatar
-						.setIcon(new ImageIcon(Employing.avatar.getScaledInstance(Employing.lbl_EmployeeAvatar.getWidth(),
-								Employing.lbl_EmployeeAvatar.getHeight(), Image.SCALE_AREA_AVERAGING)));
+			Image avatar = Functions.selectImage();
+			if (avatar.equals(null)) {
+				Employing.lbl_EmployeeAvatar.setIcon(null);
 			}
 
+		}
+	};
+
+	ActionListener Employ = new ActionListener() {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			if (Functions.areAllFieldsNotBlank()) {
+				Payroll.RightContainer.employing.setVisible(false);
+				Payroll.RightContainer.defaultpanel.setVisible(true);
+
+				Employee Employee = new Employee();
+				Employee.setEmployeeAvatar((Image) Employing.lbl_EmployeeAvatar.getIcon());
+				Employee.setEmployeeFirstName(Employing.txtF_EmployeeFirstName.getText());
+				Employee.setEmployeeLastName(Employing.txtF_EmployeeLastName.getText());
+				Employee.setEmployeeAddress(Employing.txtF_EmployeeAddress.getText());
+				Employee.setEmployeeBirthDate(Employing.EmployeeBirthDate.getDate());
+				Employee.setEmployeeJobTitle(Employing.txtF_EmployeeJobTitle.getText());
+				Employee.setEmployeeGender(Employing.txtF_EmployeeGender.getText());
+				EmployeeListPnl.listModel.addElement(Employee);
+
+				Functions.clearFields();
+			}
+
+			// System.out.println(Employee.getEmployeeBirthDate());
 		}
 	};
 
@@ -149,32 +147,12 @@ public interface Listeners extends Functions {
 		}
 	};
 
-	ActionListener Employ = new ActionListener() {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			Employee Employee = new Employee();
-
-			Employee.setEmployeeAvatar(Employing.avatar);
-			Employee.setEmployeeFirstName(Employing.txtF_EmployeeFirstName.getText());
-			Employee.setEmployeeLastName(Employing.txtF_EmployeeLastName.getText());
-			Employee.setEmployeeAddress(Employing.txtF_EmployeeAddress.getText());
-			Employee.setEmployeeBirthDate(Employing.EmployeeBirthDate.getDate());
-			Employee.setEmployeeJobTitle(Employing.txtF_EmployeeJobTitle.getText());
-			Employee.setEmployeeGender(Employing.txtF_EmployeeGender.getText());
-			EmployeeListPnl.listModel.addElement(Employee);
-			//System.out.println(Employee.getEmployeeBirthDate());
-		}
-	};
-
 	ActionListener close = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-
-
-			//Payroll.MainFrame.getContentPane().add(Payroll.Defaultpanel);
-			EmployeeViewer.placeholder.setVisible(true);
+			Functions.clearFields();
+			Functions.close();
 		}
 	};
 }

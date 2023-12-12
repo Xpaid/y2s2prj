@@ -1,8 +1,10 @@
 package payroll.functions;
 
+import java.awt.Container;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,28 +17,84 @@ import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import data.Employee;
+import payroll.Payroll;
+import payroll.employeeViewer.Employing;
 import tools.Utilities;
 
 public interface Functions {
+	
+	public static boolean areAllFieldsNotBlank() {
+	    if (Employing.txtF_EmployeeFirstName.getText().isBlank()
+	            || Employing.txtF_EmployeeLastName.getText().isBlank()
+	            || Employing.txtF_EmployeeAddress.getText().isBlank()
+	            || Employing.txtF_EmployeeGender.getText().isBlank()
+	            || Employing.txtF_EmployeeEmail.getText().isBlank()
+	            || Employing.txtf_EmployeeContact.getText().isBlank()
+	            || Employing.txtF_EmployeeJobTitle.getText().isBlank()
+	            || Employing.txtf_EmployeeWorkLocation.getText().isBlank()
+	            || Employing.txtF_EmployeeBankAcc.getText().isBlank()
+	            || Employing.txtF_EmployeeMonthlySalary.getText().isBlank()
+	            || Employing.EmployeeBirthDate.getDate() == null
+	            || Employing.EmployeeStartDate.getDate() == null
+	            || Employing.EmployeeContractEnd.getDate() == null) {
+	        return false; // At least one field is blank
+	    } else {
+	        return true; // All fields are not blank
+	    }
+	}
+	
+	public static void clearFields() {
+	    // Clear text fields
+		Employing.lbl_EmployeeAvatar.setIcon(null);
+	    Employing.txtF_EmployeeFirstName.setText("");
+	    Employing.txtF_EmployeeLastName.setText("");
+	    Employing.txtF_EmployeeAddress.setText("");
+	    Employing.txtF_EmployeeGender.setText("");
+	    Employing.txtF_EmployeeEmail.setText("");
+	    Employing.txtf_EmployeeContact.setText("");
+	    Employing.txtF_EmployeeJobTitle.setText("");
+	    Employing.txtf_EmployeeWorkLocation.setText("");
+	    Employing.txtF_EmployeeBankAcc.setText("");
+	    Employing.txtF_EmployeeMonthlySalary.setText("");
 
+	    // Clear date choosers
+	    Employing.EmployeeBirthDate.setDate(null);
+	    Employing.EmployeeStartDate.setDate(null);
+	    Employing.EmployeeContractEnd.setDate(null);
+	}
+	
+	
+	public static void addEmployee() {
+		Payroll.RightContainer.defaultpanel.setVisible(false);
+		Payroll.RightContainer.employing.setVisible(true);
+	}	
+
+	public static void close() {
+		Payroll.RightContainer.defaultpanel.setVisible(true);
+		Payroll.RightContainer.employing.setVisible(false);
+	}
+	
 	public static Image selectImage() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "png", "gif"));
 
-        int result = fileChooser.showOpenDialog(null);
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser
+				.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Image Files", "jpg", "png", "gif"));
 
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
+		int result = fileChooser.showOpenDialog(null);
 
-            try {
-                return ImageIO.read(selectedFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+		if (result == JFileChooser.APPROVE_OPTION) {
+			File selectedFile = fileChooser.getSelectedFile();
 
-        return null; // Return null if no image is selected or an error occurs
-    }
+			try {
+				return ImageIO.read(selectedFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null; // Return null if no image is selected or an error occurs
+	}
 
 	public static boolean isFilled(JTextField comp) {
 		if (comp.getText().length() >= 5) {
@@ -47,6 +105,13 @@ public interface Functions {
 
 	public static boolean isValid(char c) {
 		if (Character.isAlphabetic(c) || Character.isDigit(c)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static boolean isNumber(char c) {
+		if (Character.isDigit(c)) {
 			return true;
 		}
 		return false;

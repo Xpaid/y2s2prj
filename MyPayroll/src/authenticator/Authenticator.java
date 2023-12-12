@@ -17,6 +17,7 @@ import tools.Utilities.RoundedButton;
 import tools.Utilities.RoundedJPasswordField;
 import tools.Utilities.RoundedPanel;
 import tools.Utilities.RoundedTextField;
+import java.awt.Color;
 
 public class Authenticator implements Listeners {
 	public static JFrame authFrame;
@@ -61,7 +62,7 @@ public class Authenticator implements Listeners {
 		JLabel companyLbl = new JLabel("company");
 		companyLbl.setBounds(54, 165, 65, 14);
 		companyLbl.setForeground(DarkModeColorPalette.MEDIUM_GRAY.darker());
-		companyLbl.setFont(new Font("Consolas", Font.BOLD, 12));
+		companyLbl.setFont(new Font("Consolas", Font.BOLD, 13));
 		companyLbl.setBorder(null);
 		authFrame.getContentPane().add(companyLbl);
 
@@ -75,9 +76,9 @@ public class Authenticator implements Listeners {
 		authFrame.getContentPane().add(companyField);
 
 		JLabel passwordLbl = new JLabel("password");
-		passwordLbl.setBounds(54, 245, 65, 14);
+		passwordLbl.setBounds(54, 250, 65, 14);
 		passwordLbl.setForeground(DarkModeColorPalette.MEDIUM_GRAY.darker());
-		passwordLbl.setFont(new Font("Consolas", Font.BOLD, 12));
+		passwordLbl.setFont(new Font("Consolas", Font.BOLD, 13));
 		passwordLbl.setBorder(null);
 		authFrame.getContentPane().add(passwordLbl);
 
@@ -134,6 +135,20 @@ public class Authenticator implements Listeners {
 		versionString.setBorder(null);
 		versionString.setBounds(204, 422, 130, 14);
 		authFrame.getContentPane().add(versionString);
+		
+		JLabel lblCharactersMinimum = new JLabel("5 characters minimum");
+		lblCharactersMinimum.setForeground(DarkModeColorPalette.RED.darker());
+		lblCharactersMinimum.setFont(new Font("Consolas", Font.BOLD, 10));
+		lblCharactersMinimum.setBorder(null);
+		lblCharactersMinimum.setBounds(54, 218, 141, 14);
+		authFrame.getContentPane().add(lblCharactersMinimum);
+		
+		JLabel lblCharactersMinimum_1 = new JLabel("5 characters minimum");
+		lblCharactersMinimum_1.setForeground(DarkModeColorPalette.RED.darker());
+		lblCharactersMinimum_1.setFont(new Font("Consolas", Font.BOLD, 10));
+		lblCharactersMinimum_1.setBorder(null);
+		lblCharactersMinimum_1.setBounds(54, 304, 141, 14);
+		authFrame.getContentPane().add(lblCharactersMinimum_1);
 
 		authFrame.setVisible(true);
 	}

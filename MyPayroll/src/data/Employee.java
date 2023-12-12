@@ -3,6 +3,10 @@ package data;
 import java.awt.Image;
 import java.util.Date;
 
+import com.toedter.components.UTF8ResourceBundle;
+
+import tools.Utilities;
+
 public class Employee {
 	private Image employeeAvatar;
     private String employeeFirstName;
@@ -23,10 +27,13 @@ public class Employee {
     private String employeeHourlyWage;
 
     public Image getEmployeeAvatar() {
-		return employeeAvatar == null ? employeeAvatar : null;
+    	return employeeAvatar;
 	}
 
 	public void setEmployeeAvatar(Image employeeAvatar) {
+		if (employeeAvatar == null) {
+			employeeAvatar = Utilities.defaultAvatar.getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING);
+		}
 		this.employeeAvatar = employeeAvatar;
 	}
 
